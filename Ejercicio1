@@ -1,0 +1,65 @@
+#include <stdio.h>
+typedef int vec[50];
+typedef struct {
+	vec dato;
+	int tam;
+} t_vector;
+
+void carga_vec (t_vector *);
+void muestra_vec (t_vector );
+void agrega_final (t_vector *, int );
+void elimina_pos (t_vector *,int );
+void compara_ele (t_vector *);
+
+int main() {
+	t_vector V;
+	printf ("Ingrese tamaño de vector: ");
+	scanf ("%d",&V.tam);
+	carga_vec(&V);
+	printf ("\nUsted cargo el vector: ");
+	muestra_vec(V);
+	compara_ele(&V);
+	printf ("\n\nVector solicitado: ");
+	muestra_vec(V);
+	return 0;
+}
+
+void carga_vec (t_vector *v){
+	int i;
+	for (i=1;i<=v->tam;i++){
+		printf ("\nIngrese dato: ");
+		scanf ("%d",&v->dato[i]);
+	}
+}
+
+void muestra_vec (t_vector v){
+	int i;
+	for (i=1;i<=v.tam;i++)
+		printf ("\nDato: %d",v.dato[i]);
+}
+
+void agrega_final (t_vector *v,int ele){
+	v->dato[v->tam+1]=ele;
+	v->tam=v->tam+1;
+}
+
+void elimina_pos (t_vector *v,int pos){
+	int i;
+	for (i=pos;i<=v->tam;i++){
+		v->dato[i]=v->dato[i+1];
+	}
+	v->tam=v->tam-1;
+}
+
+void compara_ele (t_vector *v){
+	int i, j;
+	
+	for (i=1;i<=v->tam-1;i++){
+		for (j=i+1;j<=v->tam;j++){
+			if (v->dato[i]==v->dato[j]){
+				elimina_pos(v,j);
+				agrega_final(v,v->dato[i]);
+			}
+		}
+	}
+}
